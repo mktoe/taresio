@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <script src="jquery-3.3.1.min.js"></script>
+    <meta charset="utf-8">
+    <title>たれしお(gamePage)</title>
+</head>
+
+<body>
+    <div class="gamePage">gamePage</div>
+    <script>
+        // ゲームページ用クラス
+        // ・前ページでpostされたパラメータを読込む(TODO)
+        // ・ランダム画像を選んでページを作成
+        // ・10秒後に次画面へ遷移
+        class GamePage {
+            constructor() {
+                //this.postParam = "";
+            }
+
+            get postParam() {
+                return this.postParam;
+            }
+
+            // 指定パスに存在する画像ファイル名をnum個ランダムに選択し,リストを返す
+            randomPicturePath(folderPath, num) {
+                var pictureList = new Array();
+                for (var i = 0; i < num; i++) {
+                    var min = 1;
+                    var max = 10;
+                    var picturoNo = Math.floor(Math.random() * (max + 1 - min)) + min;
+                    pictureList.push(folderPath + "/" + picturoNo + ".jpg");
+                    console.log(pictureList[i]);
+                }
+                return pictureList;
+            }
+
+            // ランダムで画像パスを1つ返す
+            getRandomPicuture(dirPath) {
+                var picNo = Math.floor(Math.random() * 10) + 1;
+                return dirPath + "/" + picNo + ".jpg";
+            }
+
+            dispPicturelist($list1) {
+                var moji = "";
+                for (var i = 0; i < list1.length; i++) {
+                    moji += "No." + (i + 1) + "<img width='20%' height='20%' src=" + list1[i] + "></br>";
+                }
+                $(".test").html(moji);
+                console.log(moji);
+            }
+
+            // 画像タグ作成
+            createNetaTag() {
+                var picture = this.getRandomPicuture("./pic1");
+                var tag = "<p id=\"Neta\"><img width='20%' height='20%' src=" + picture + "></p>";
+                return tag;
+            }
+
+            // たれボタンタグ作成
+            createTareButtonTag() {
+                // TODO後でpostの仕組みをつくる
+                return "<button type=\"button\"onclick=\"location.href='./game.html'\">たれ</button>"
+            }
+
+            // しおボタンタグ作成
+            createSioButtonTag() {
+                // TODO後でpostの仕組みをつくる
+                return "<button type=\"button\"onclick=\"location.href='./game.html'\">しお</button>"
+            }
+
+            // カウントダウンタグ作成
+            createCountDownTag(count) {
+                return "<p id=\"CountDown\">あと" + count + "秒</p>";
+            }
+        }
+
+        // ページ処理
+        var timer;
+        var count;
+        var game = new GamePage();
+
+        // ロード
+        window.onload = function () {
+            count = 10;
+            // ページ作成
+            var pageTag = game.createTareButtonTag();
+            pageTag += game.createNetaTag();
+            pageTag += game.createSioButtonTag();
+            pageTag += game.createCountDownTag(count);
+            $(".gamePage").html(pageTag);
+            console.log(pageTag);
+            // タイマー起動
+            timer = setInterval(timerFired, 1000);
+        }
+
+        // タイマー処理
+        function timerFired() {
+            count--;   // カウントアップ
+            if (count >= 0) {
+                var tag = game.createCountDownTag(count);
+                document.getElementById("CountDown").innerHTML = tag;   // 表示更新
+            } else {
+                window.location.href = './game.html';   // 遷移（postにするTODO）
+            }
+        }
+    </script>
+</body>
+
+</html>
