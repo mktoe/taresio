@@ -4,12 +4,13 @@
 <head>
     <meta charset="utf-8">
     <title>たれしお</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
 <body>
-    <div id="overray"></div><!--/#overray-->
-    
+    <div id="overray"></div>
+    <!--/#overray-->
+
     <h2 class="top_h2">「タレor塩」はタレか塩を選ぶだけの簡単なゲームです。</h2>
 
     <br>
@@ -22,8 +23,7 @@
         window.onload = function () {
             // セッションデータをクリア
             sessionStorage.clear();
-            sessionStorage.key = 'FIRST';
-            sessionStorage.setItem('count', '0');
+            sessionStorage.setItem('pageCount', '0');
         }
     </script>
 </body>

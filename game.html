@@ -5,7 +5,7 @@
     <script src="jquery-3.3.1.min.js"></script>
     <meta charset="utf-8">
     <title>たれしお(gamePage)</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css"> 
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 
 <body>
@@ -17,11 +17,21 @@
         // ・10秒後に次画面へ遷移
         class GamePage {
             constructor() {
-                //this.postParam = "";
+                // 現在のページカウント
+                this._pageCount = parseInt(sessionStorage.getItem('pageCount'));
+                // 画像＆選択履歴
+                this._pictureHistory = new Array();
+                for (var i = 0; i < this._pageCount; i++) {
+                    var picture = sessionStorage.getItem(i + 'page.picture');
+                    this._pictureHistory.push(picture);
+                    // debug
+                    console.log(picture);
+                    console.log(sessionStorage.getItem(i + 'page.select'));
+                }
             }
 
-            get postParam() {
-                return this.postParam;
+            get pageCount() {
+                return this._pageCount;
             }
 
             // 指定パスに存在する画像ファイル名をnum個ランダムに選択し,リストを返す
@@ -56,6 +66,8 @@
             createNetaTag() {
                 var picture = this.getRandomPicuture("./pic1");
                 var tag = "<p id=\"Neta\"><img width='20%' height='20%' src=" + picture + "></p>";
+                // 表示した画像を記憶
+                sessionStorage.setItem(this._pageCount + 'page.picture', picture);
                 return tag;
             }
 
@@ -77,46 +89,59 @@
             createCountDownTag(count) {
                 return "<p id=\"CountDown\">あと" + count + "秒</p>";
             }
+
+            // セッション有効判定
+            isAvailableSessionStorage() {
+                if (('sessionStorage' in window) && (window.sessionStorage !== null)) {
+                    console.log("Available!");
+                    return true;
+                } else {
+                    console.log("Not available...");
+                    return false;
+                }
+            }
+
+            // 選択情報保存
+            savePageData(selection) {
+                var now = this._pageCount;
+                sessionStorage.setItem(now + 'page.select', selection);
+                sessionStorage.setItem('pageCount', String(now + 1));
+            }
         }
 
         // ページ処理
         var timer;
         var count;
         var game = new GamePage();
-        var pageCount = 0;
 
         // ロード
         window.onload = function () {
             count = 10;
             // ページ作成
-            // testamenta
-            pageCount = parseInt(sessionStorage.getItem('count'));
-            console.log(pageCount + 'ページ目');
-            console.log(sessionStorage.getItem('key'));
-
-            var pageTag = game.createTareButtonTag();
-            pageTag += game.createNetaTag();
-            pageTag += game.createSioButtonTag();
-            pageTag += game.createCountDownTag(count);
-            $(".gamePage").html(pageTag);
-            console.log(pageTag);
-            // タイマー起動
-            timer = setInterval(timerFired, 1000);
-            pageCount++;
+            if (game.isAvailableSessionStorage()) {
+                var pageTag = (game.pageCount + 1) + "品目<br>";
+                pageTag += game.createTareButtonTag();
+                pageTag += game.createNetaTag();
+                pageTag += game.createSioButtonTag();
+                pageTag += game.createCountDownTag(count);
+                $(".gamePage").html(pageTag);
+                console.log(pageTag);
+                // タイマー起動
+                timer = setInterval(timerFired, 1000);
+                console.log("pageCount=" + game.pageCount);
+            }
         }
 
-        // hogehoge
+        // たれボタンクリック
         function OnTareButtonClick() {
-            alert("たれ");
-            sessionStorage.key = 'TARE';
-            sessionStorage.setItem('count', pageCount.toString());
-            window.location.href = './game.html';   // 遷移（postにするTODO）
+            game.savePageData('たれ');
+            gotoNextPage();
         }
+
+        // しおボタンクリック
         function OnSioButtonClick() {
-            alert("しお");
-            sessionStorage.key = 'SIO';
-            sessionStorage.setItem('count', pageCount.toString());
-            window.location.href = './game.html';   // 遷移（postにするTODO）
+            game.savePageData('しお');
+            gotoNextPage();
         }
 
         // タイマー処理
@@ -125,22 +150,19 @@
             if (count >= 0) {
                 var tag = game.createCountDownTag(count);
                 document.getElementById("CountDown").innerHTML = tag;   // 表示更新
-                // sessionstorageTest
-                saveTaresio();
             } else {
-                sessionStorage.key = 'NOT';
-                sessionStorage.setItem('count', pageCount.ToString());
-                window.location.href = './game.html';   // 遷移（postにするTODO）
+                game.savePageData('おまかせ');  // タイムアップ
+                gotoNextPage();
             }
         }
 
-        // セッションストレージを作ってみるテスト
-        function saveTaresio() {
-            if (('sessionStorage' in window) && (window.sessionStorage !== null)) {
-                console.log("Available!");
-                //sessionStorage.key = count;
+        function gotoNextPage() {
+            if (game.pageCount < 9) {
+                // ゲームページ
+                window.location.href = './game.html';
             } else {
-                console.log("Not available...");
+                // 結果表示
+                window.location.href = './result.html';
             }
         }
     </script>
