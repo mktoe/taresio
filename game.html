@@ -61,13 +61,15 @@
             // たれボタンタグ作成
             createTareButtonTag() {
                 // TODO後でpostの仕組みをつくる
-                return "<button type=\"button\"onclick=\"location.href='./game.html'\">たれ</button>"
+                //return "<button id=\'id\' type=\"button\"onclick=\"location.href='./game.html'\">たれ</button>"
+                return "<button id=\'id\' type=\"button\"onclick=\"OnTareButtonClick();\">たれ</button>"
             }
 
             // しおボタンタグ作成
             createSioButtonTag() {
                 // TODO後でpostの仕組みをつくる
-                return "<button type=\"button\"onclick=\"location.href='./game.html'\">しお</button>"
+                //return "<button type=\"button\"onclick=\"location.href='./game.html'\">しお</button>"
+                return "<button id=\'id\' type=\"button\"onclick=\"OnSioButtonClick();\">しお</button>"
             }
 
             // カウントダウンタグ作成
@@ -80,11 +82,17 @@
         var timer;
         var count;
         var game = new GamePage();
+        var pageCount = 0;
 
         // ロード
         window.onload = function () {
             count = 10;
             // ページ作成
+            // testamenta
+            pageCount = parseInt(sessionStorage.getItem('count'));
+            console.log(pageCount + 'ページ目');
+            console.log(sessionStorage.getItem('key'));
+
             var pageTag = game.createTareButtonTag();
             pageTag += game.createNetaTag();
             pageTag += game.createSioButtonTag();
@@ -93,6 +101,21 @@
             console.log(pageTag);
             // タイマー起動
             timer = setInterval(timerFired, 1000);
+            pageCount++;
+        }
+
+        // hogehoge
+        function OnTareButtonClick() {
+            alert("たれ");
+            sessionStorage.key = 'TARE';
+            sessionStorage.setItem('count', pageCount.toString());
+            window.location.href = './game.html';   // 遷移（postにするTODO）
+        }
+        function OnSioButtonClick() {
+            alert("しお");
+            sessionStorage.key = 'SIO';
+            sessionStorage.setItem('count', pageCount.toString());
+            window.location.href = './game.html';   // 遷移（postにするTODO）
         }
 
         // タイマー処理
@@ -101,8 +124,22 @@
             if (count >= 0) {
                 var tag = game.createCountDownTag(count);
                 document.getElementById("CountDown").innerHTML = tag;   // 表示更新
+                // sessionstorageTest
+                saveTaresio();
             } else {
+                sessionStorage.key = 'NOT';
+                sessionStorage.setItem('count', pageCount.ToString());
                 window.location.href = './game.html';   // 遷移（postにするTODO）
+            }
+        }
+
+        // セッションストレージを作ってみるテスト
+        function saveTaresio() {
+            if (('sessionStorage' in window) && (window.sessionStorage !== null)) {
+                console.log("Available!");
+                //sessionStorage.key = count;
+            } else {
+                console.log("Not available...");
             }
         }
     </script>

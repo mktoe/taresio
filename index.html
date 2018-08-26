@@ -12,11 +12,14 @@
     <img width='20%' height='20%' src="./pic1/8.jpg">
     <br>
     <!-- タイトル画像暫定 -->
-    <button type="button" onclick="location.href='./game.html'">スタート</button>
+    <button id="id" type="button" onclick="location.href='./game.html'">スタート</button>
     <script>
         // ロード
         window.onload = function () {
-            // とくににないです
+            // セッションデータをクリア
+            sessionStorage.clear();
+            sessionStorage.key = 'FIRST';
+            sessionStorage.setItem('count', '0');
         }
     </script>
 </body>
