@@ -9,7 +9,17 @@
 </head>
 
 <body>
-    <div class="gamePage">gamePage</div>
+    <div id="overray_right"></div>
+    <div id="overray_left"></div>
+    <!--/#overray-->
+
+    <div id="contents" class="game_content">
+        <header>
+            <img class="logo_top" src="img/game_noren.png" alt="どちらでいただく？" width="350">
+        </header>
+        <div class="gamePage">gamePage</div>
+    </div><!--#contents-->
+
     <script>
         // ゲームページ用クラス
         // ・前ページでpostされたパラメータを読込む(TODO)
@@ -65,7 +75,7 @@
             // 画像タグ作成
             createNetaTag() {
                 var picture = this.getRandomPicuture("./pic1");
-                var tag = "<p id=\"Neta\"><img width='20%' height='20%' src=" + picture + "></p>";
+                var tag = "<p id=\"Neta\"><img src=" + picture + "></p>";
                 // 表示した画像を記憶
                 sessionStorage.setItem(this._pageCount + 'page.picture', picture);
                 return tag;
@@ -75,14 +85,14 @@
             createTareButtonTag() {
                 // TODO後でpostの仕組みをつくる
                 //return "<button id=\'id\' type=\"button\"onclick=\"location.href='./game.html'\">たれ</button>"
-                return "<button id=\'id\' type=\"button\"onclick=\"OnTareButtonClick();\">たれ</button>"
+                return '<button class="tare_btn" id=\'id\' type=\"button\"onclick=\"OnTareButtonClick();\">タレ</button>'
             }
 
             // しおボタンタグ作成
             createSioButtonTag() {
                 // TODO後でpostの仕組みをつくる
                 //return "<button type=\"button\"onclick=\"location.href='./game.html'\">しお</button>"
-                return "<button id=\'id\' type=\"button\"onclick=\"OnSioButtonClick();\">しお</button>"
+                return '<button class="sio_btn" id=\'id\' type=\"button\"onclick=\"OnSioButtonClick();\">塩</button>'
             }
 
             // カウントダウンタグ作成
@@ -116,10 +126,10 @@
 
         // ロード
         window.onload = function () {
-            count = 10;
+            count = 15;
             // ページ作成
             if (game.isAvailableSessionStorage()) {
-                var pageTag = (game.pageCount + 1) + "品目<br>";
+                var pageTag = '<h2 class="order_h2">' + (game.pageCount + 1) + "品目</h2><br>";
                 pageTag += game.createTareButtonTag();
                 pageTag += game.createNetaTag();
                 pageTag += game.createSioButtonTag();

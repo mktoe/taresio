@@ -9,7 +9,17 @@
 </head>
 
 <body>
-    <div class="resultPage">resultPage</div>
+    <div id="overray_right"></div>
+    <div id="overray_left"></div>
+    <!--/#overray-->
+
+    <div id="contents" class="game_content">
+        <header>
+            <img class="logo_top" src="img/result_noren.png" alt="結果発表" width="350">
+        </header>
+        <div class="resultPage"></div>
+    </div><!--#contents-->
+
     <script>
         // 結果表示用クラス
         class ResultPage {
@@ -43,7 +53,7 @@
                     var picture = this._pictureHistory[i];
                     var select = this._selectHistory[i];
                     tag += (i + 1) + "品目<br>";
-                    tag += "<p id=\"Neta\"><img width='20%' height='20%' src=" + picture + "></p><br>";
+                    tag += "<p id=\"result_Neta\"><img width='20%' height='20%' src=" + picture + "></p><br>";
                     tag += "あなたは" + select + "で注文しました<br>";
                 }
                 return tag;
@@ -56,7 +66,7 @@
         // ロード
         window.onload = function () {
             // ページ作成
-            var pageTag = "結果表示<hr>";
+            var pageTag = "";
             pageTag += page.createResultTag();
             $(".resultPage").html(pageTag);
             console.log(pageTag);

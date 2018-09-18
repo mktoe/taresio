@@ -5,6 +5,7 @@ body{
     height: 100vh;
     background:url(../img/taresio_bg.jpg)50% 50% no-repeat;
     background-size:cover;
+    background-attachment: fixed;
 }
 #overray:after{
     content:"";
@@ -16,9 +17,287 @@ body{
     margin:0;
     width:100%;
     height: 100vh;
-    background:rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.0);
     z-index: -1;
+    background-attachment: fixed;
 }
+#overray_right:after{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    height:0;
+    padding:0;
+    margin:0;
+    width:50%;
+    height: 100vh;
+    background:rgba(193,39,45,0.7);
+    z-index: -1;
+    background-attachment: fixed;
+}
+#overray_left:after{
+    content:"";
+    position:fixed;
+    top:0;
+    right:0;
+    height:0;
+    padding:0;
+    margin:0;
+    width:50%;
+    height: 100vh;
+    background:rgba(41,171,226,0.7);
+    z-index: -1;
+    background-attachment: fixed;
+}dd
+
+
+
+/* index トップページ==================================*/
+#contents{
+    width:1120px;
+    margin:0 auto;
+    position:relative;
+    padding:0 !important;
+}
+
+button.start_btn{
+    width:400px;
+    border-style:none;
+    display: block;
+    padding:1em 1em;
+    text-decoration: none;
+    background: #F15A24;/*ボタン色*/
+    color: #FFF;
+    border-bottom: solid 4px #C93F14;
+    border-radius: 3px;
+    position:static;
+    margin:0  auto;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:30px;
+}
+button.start_btn:hover{
+    cursor: pointer;
+}
+button.start_btn:active {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+h1.title_h1{
+    width:600px;
+    margin:0 auto;
+    position: relative;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+h1.title_h1:after{
+    content:"";
+    display: block;
+    position:static;
+    height:300px;
+}
+
 h2.top_h2{
     color:#fff;
+    text-align: center;
+    font-size:19px;
+    font-weight:normal;
+    font-style: italic;
+    letter-spacing: 2px;
+    text-shadow:0px 0px 4px #000;
+    font-weight: bold;
 }
+img.logo_top{
+    position:absolute;
+    left:50px;
+}
+img.logo_bottom{
+    position:absolute;
+    top:105px;
+}
+
+
+
+
+
+@media (max-width: 1200px) {
+    
+}
+@media (max-width: 1120px) {
+    #contents{
+        width:90%;
+    }  
+}
+@media (max-width: 993px) {
+    #contents{
+        width:98%;
+    }  
+}
+@media (max-width: 768px) {
+    h1.title_h1{
+        width:90%;
+    }
+    img.logo_top{
+        width:70%;
+        left:0;
+    }
+    img.logo_bottom{
+        width:100%;
+        top:130px;
+    }
+    button.start_btn{
+        width:80%;
+    }
+}
+
+
+/* game page==================================*/
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:99999;
+    width:100%;
+}
+header img.logo_top{ 
+    position:absolute;
+    width:450px;
+    left: 50%;
+    transform:translateX(-50%);
+    display: block;
+    top:-20px;
+}
+h2.order_h2{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit- transform: translateY(-50%) translateX(-50%);
+    text-align:center;
+    color:#fff;
+    font-size:30px;
+    font-style: italic;
+    display: block;
+    letter-spacing: 2px;
+    z-index:9999;
+    margin:0;
+    padding:13px 0;
+    text-shadow:0px 0px 5px #000;
+}
+p#CountDown{
+    position:fixed;
+    bottom:0px;
+    left:0;
+    width:100%;
+    text-align:center;
+    color:#fff;
+    font-size:20px;
+    font-style: italic;
+    display: block;
+    letter-spacing: 2px;
+    background: rgba(241,90,36,1);
+    z-index:9999;
+    margin:0;
+    padding:13px 0;
+}
+
+button.tare_btn{
+    position:absolute;
+    left:0;
+    top:40%;
+    z-index:100;
+    display: inline-block;
+    text-decoration: none;
+    background: #C1272D !important;/*アイコン色*/
+    width: 120px;
+    height: 120px;
+    line-height: 80px;
+    font-size: 26px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    font-weight: bold;
+    color: #fff;
+    border-style:none;
+    box-shadow:none;
+    border:4px solid #fff;
+}
+button.tare_btn:hover{
+    cursor: pointer;
+    opacity:0.85;
+}
+button.sio_btn{
+    position:absolute;
+    right:0;
+    top:40%;
+    z-index:100;
+    display: inline-block;
+    text-decoration: none;
+    background: #29ABE2;/*アイコン色*/
+    width: 120px;
+    height: 120px;
+    line-height: 80px;
+    font-size: 26px;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    overflow: hidden;
+    font-weight: bold;
+    color: #fff;
+    border:4px solid #fff;
+}
+button.sio_btn:hover{
+    cursor: pointer;
+    opacity:0.85;
+}
+
+.game_content{
+    position:relative;
+    width:100%;
+    height:100%;
+    display:block;
+}
+p#Neta{
+    width:100%;
+    height:100%;
+    overflow: hidden;
+    margin:0 !important;
+    padding:0 !important;
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    -webkit-transform: translate(-50%, 0%);
+    transform: translate(-50%, -0%);
+}
+p#Neta img{
+    width:0;
+    height:auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    height:70%;
+    object-fit: cover; /* この一行を追加するだけ！ */
+
+    animation-name:fadeScale;
+    animation-duration:15s;
+    animation-timing-function: ease;
+    animation-fill-mode:forwards;
+
+    -webkit-transform: translate3d(-50%,-50%,0);
+}
+@keyframes fadeScale {
+    0% {
+        width:50%;
+        height:auto;
+    }
+     100%{
+        width:100%;
+        height:auto;
+     }
+ }
+
