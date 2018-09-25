@@ -4,6 +4,7 @@
 <head>
     <script src="jquery-3.3.1.min.js"></script>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <title>たれしお(gamePage)</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
@@ -126,7 +127,7 @@
 
         // ロード
         window.onload = function () {
-            count = 15;
+            count = 10;
             // ページ作成
             if (game.isAvailableSessionStorage()) {
                 var pageTag = '<h2 class="order_h2">' + (game.pageCount + 1) + "品目</h2><br>";

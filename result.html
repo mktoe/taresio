@@ -4,6 +4,7 @@
 <head>
     <script src="jquery-3.3.1.min.js"></script>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <title>たれしお(resultPage)</title>
     <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
@@ -13,11 +14,21 @@
     <div id="overray_left"></div>
     <!--/#overray-->
 
-    <div id="contents" class="game_content">
+    <div id="" class="game_content">
         <header>
             <img class="logo_top" src="img/result_noren.png" alt="結果発表" width="350">
         </header>
-        <div class="resultPage"></div>
+        <div class="resultPage">
+            <div class="tare_content">
+                <h2 class="result_title">タレ 合計〇〇品</h2>
+                <div class="tare_inner"></div><!--/.tare_inner-->
+            </div><!--/.tare_content-->
+            
+            <div class="sio_content">
+                <h2 class="result_title">塩 合計〇〇品</h2>
+                <div class="sio_inner"></div><!--/.tare_inner-->
+            </div><!--/.sio_content-->
+        </div>
     </div><!--#contents-->
 
     <script>
@@ -47,17 +58,41 @@
             }
 
             // 画像タグ作成
-            createResultTag() {
+            TareCreateResultTag() {
                 var tag = "";
                 for (var i = 0; i < this._pageCount; i++) {
                     var picture = this._pictureHistory[i];
                     var select = this._selectHistory[i];
-                    tag += (i + 1) + "品目<br>";
-                    tag += "<p id=\"result_Neta\"><img width='20%' height='20%' src=" + picture + "></p><br>";
-                    tag += "あなたは" + select + "で注文しました<br>";
+                    if(select == "たれ"){
+                        tag += '<div class="tare_area">';
+                        tag += (i + 1) + "品目<br>";
+                        tag += "<p id=\"result_Neta\"><img width='20%' height='20%' src=" + picture + "></p><br>";
+                        tag += "あなたは" + select + "で注文しました<br>";
+                        tag += '<div><!--/.tare_area-->';
+                    }
                 }
                 return tag;
             }
+
+            // 画像タグ作成
+            SioCreateResultTag() {
+                var tag = "";
+                for (var i = 0; i < this._pageCount; i++) {
+                    var picture = this._pictureHistory[i];
+                    var select = this._selectHistory[i];
+                    if(select == "しお"){
+                        tag += '<div class="sio_area">';
+                        tag += (i + 1) + "品目<br>";
+                        tag += "<p id=\"result_Neta\"><img width='20%' height='20%' src=" + picture + "></p><br>";
+                        tag += "あなたは" + select + "で注文しました<br>";
+                        tag += '<div><!--/.sio_area-->';
+                    }
+                }
+                return tag;
+            }
+
+
+
         }
 
         // ページ処理
@@ -66,9 +101,15 @@
         // ロード
         window.onload = function () {
             // ページ作成
-            var pageTag = "";
-            pageTag += page.createResultTag();
-            $(".resultPage").html(pageTag);
+            var TarePageTag = "";
+            var SioPageTag = "";
+
+            TarePageTag += page.TareCreateResultTag();
+            SioPageTag += page.SioCreateResultTag();
+
+            $(".tare_inner").html(TarePageTag);
+            $(".sio_inner").html(SioPageTag);
+
             console.log(pageTag);
         }
     </script>
