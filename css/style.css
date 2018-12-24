@@ -411,7 +411,13 @@ p#Neta img{
     width:100%;
 }
 
-h2.result_title{
+h2.result_title_s{
+    text-align:center;
+    color:#fff;
+    padding:120px 0 0 0;
+}
+
+h2.result_title_t{
     text-align:center;
     color:#fff;
     padding:120px 0 0 0;

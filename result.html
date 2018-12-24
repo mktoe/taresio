@@ -20,16 +20,21 @@
         </header>
         <div class="resultPage">
             <div class="tare_content">
-                <h2 class="result_title">タレ 合計〇〇品</h2>
-                <div class="tare_inner"></div><!--/.tare_inner-->
-            </div><!--/.tare_content-->
-            
+                <h2 class="result_title_t">タレ 合計〇〇品</h2>
+                <div class="tare_inner"></div>
+                <!--/.tare_inner-->
+            </div>
+            <!--/.tare_content-->
+
             <div class="sio_content">
-                <h2 class="result_title">塩 合計〇〇品</h2>
-                <div class="sio_inner"></div><!--/.tare_inner-->
-            </div><!--/.sio_content-->
+                <h2 class="result_title_s">塩 合計〇〇品</h2>
+                <div class="sio_inner"></div>
+                <!--/.tare_inner-->
+            </div>
+            <!--/.sio_content-->
         </div>
-    </div><!--#contents-->
+    </div>
+    <!--#contents-->
 
     <script>
         // 結果表示用クラス
@@ -57,13 +62,35 @@
                 return this._pageCount;
             }
 
+            getTareSelectNum() {
+                var ret = 0;
+                for (var i = 0; i < this._pageCount; i++) {
+                    var select = this._selectHistory[i];
+                    if (select == "たれ") {
+                        ret++;
+                    }
+                }
+                return ret;
+            }
+
+            getSioSelectNum() {
+                var ret = 0;
+                for (var i = 0; i < this._pageCount; i++) {
+                    var select = this._selectHistory[i];
+                    if (select == "しお") {
+                        ret++;
+                    }
+                }
+                return ret;
+            }
+
             // 画像タグ作成
             TareCreateResultTag() {
                 var tag = "";
                 for (var i = 0; i < this._pageCount; i++) {
                     var picture = this._pictureHistory[i];
                     var select = this._selectHistory[i];
-                    if(select == "たれ"){
+                    if (select == "たれ") {
                         tag += '<div class="tare_area">';
                         tag += (i + 1) + "品目<br>";
                         tag += "<p id=\"result_Neta\"><img width='20%' height='20%' src=" + picture + "></p><br>";
@@ -80,7 +107,7 @@
                 for (var i = 0; i < this._pageCount; i++) {
                     var picture = this._pictureHistory[i];
                     var select = this._selectHistory[i];
-                    if(select == "しお"){
+                    if (select == "しお") {
                         tag += '<div class="sio_area">';
                         tag += (i + 1) + "品目<br>";
                         tag += "<p id=\"result_Neta\"><img width='20%' height='20%' src=" + picture + "></p><br>";
@@ -109,6 +136,11 @@
 
             $(".tare_inner").html(TarePageTag);
             $(".sio_inner").html(SioPageTag);
+
+            var TareTitleTag = "タレ 合計" + page.getTareSelectNum() + "品"
+            $(".result_title_t").html(TareTitleTag);
+            var SioTitleTag = "塩 合計" + page.getSioSelectNum() + "品"
+            $(".result_title_s").html(SioTitleTag);
 
             console.log(pageTag);
         }
