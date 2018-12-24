@@ -15,7 +15,7 @@
 
     <div id="contents">
 
-        
+
         <br>
 
         <h1 class="title_h1">
@@ -24,20 +24,60 @@
         </h1>
 
         <h2 class="top_h2">「タレor塩」はタレか塩を選ぶだけの簡単なゲームです。</h2>
-        
+
         <br>
         <!-- タイトル画像暫定 -->
         <button id="id" class="start_btn" type="button" onclick="location.href='./game.html'">スタート</button>
-    
-    </div><!--#contents-->
-    
-    
+
+    </div>
+    <!--#contents-->
+
+
     <script>
         // ロード
         window.onload = function () {
             // セッションデータをクリア
             sessionStorage.clear();
             sessionStorage.setItem('pageCount', '0');
+
+            // ネタ画像リストを設定
+            var lv1 = new PictureList("./pic1", 10);
+            var lv1List = lv1.Suffle().slice(0, 7);  // 7
+            var lv2 = new PictureList("./pic2", 10);
+            var lv2List = lv2.Suffle().slice(7, 10); // 3
+            var merged = lv1List.concat(lv2List);
+            for (var i = 0; i < merged.length; i++) {
+                // 画像リストを保存
+                sessionStorage.setItem(i + 'page.picture', merged[i]);
+            }
+        }
+
+        // ネタ画像一覧をシャッフルするクラス.
+        class PictureList {
+
+            // ディレクトリpath, 画像noの最大を指定する.
+            // 暫定仕様
+            // 画像のファイル名は番号+jpgの名前で,番号は1始まりあること.
+            // ex) 1.jpg
+            // 欠番は許されない.
+            constructor(path, max) {
+                this._list = [];
+                for (var i = 1; i < max + 1; i++) { // 1 origin
+                    this._list.push(path + '/' + i + '.jpg');
+                }
+            }
+
+            // ランダムで入れ替えたリストを渡す.
+            Suffle() {
+                var suffled = this._list.slice();
+                for (var i = suffled.length - 1; i > 0; i--) {
+                    var r = Math.floor(Math.random() * (i + 1));
+                    var tmp = suffled[i];
+                    suffled[i] = suffled[r];
+                    suffled[r] = tmp;
+                }
+                return suffled;
+            }
         }
     </script>
 </body>

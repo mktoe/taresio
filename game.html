@@ -19,7 +19,8 @@
             <img class="logo_top" src="img/game_noren.png" alt="どちらでいただく？" width="350">
         </header>
         <div class="gamePage">gamePage</div>
-    </div><!--#contents-->
+    </div>
+    <!--#contents-->
 
     <script>
         // ゲームページ用クラス
@@ -30,52 +31,21 @@
             constructor() {
                 // 現在のページカウント
                 this._pageCount = parseInt(sessionStorage.getItem('pageCount'));
-                // 画像＆選択履歴
-                this._pictureHistory = new Array();
-                for (var i = 0; i < this._pageCount; i++) {
-                    var picture = sessionStorage.getItem(i + 'page.picture');
-                    this._pictureHistory.push(picture);
-                    // debug
-                    console.log(picture);
-                    console.log(sessionStorage.getItem(i + 'page.select'));
-                }
             }
 
             get pageCount() {
                 return this._pageCount;
             }
 
-            // 指定パスに存在する画像ファイル名をnum個ランダムに選択し,リストを返す
-            randomPicturePath(folderPath, num) {
-                var pictureList = new Array();
-                for (var i = 0; i < num; i++) {
-                    var min = 1;
-                    var max = 10;
-                    var picturoNo = Math.floor(Math.random() * (max + 1 - min)) + min;
-                    pictureList.push(folderPath + "/" + picturoNo + ".jpg");
-                    console.log(pictureList[i]);
-                }
-                return pictureList;
-            }
-
-            // ランダムで画像パスを1つ返す
-            getRandomPicuture(dirPath) {
-                var picNo = Math.floor(Math.random() * 10) + 1;
-                return dirPath + "/" + picNo + ".jpg";
-            }
-
-            dispPicturelist($list1) {
-                var moji = "";
-                for (var i = 0; i < list1.length; i++) {
-                    moji += "No." + (i + 1) + "<img width='20%' height='20%' src=" + list1[i] + "></br>";
-                }
-                $(".test").html(moji);
-                console.log(moji);
+            // ローカルストレージから現在のページの画像ファイルパスを取得
+            getPictureForLStorage() {
+                var picture = sessionStorage.getItem(this._pageCount + 'page.picture');
+                return picture;
             }
 
             // 画像タグ作成
             createNetaTag() {
-                var picture = this.getRandomPicuture("./pic1");
+                var picture = this.getPictureForLStorage();
                 var tag = "<p id=\"Neta\"><img src=" + picture + "></p>";
                 // 表示した画像を記憶
                 sessionStorage.setItem(this._pageCount + 'page.picture', picture);
